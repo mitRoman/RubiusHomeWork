@@ -33,6 +33,7 @@ while (true)
     else
     {
         Console.WriteLine("Введите корректные данные");
+        Console.WriteLine("Для выхода из программы введите: exit");
         Console.WriteLine("");
     }
 }
