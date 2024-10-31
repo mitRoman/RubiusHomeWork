@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RubiusHomeWork")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a2717517c50bc9c98f8073ad15b71b2ab9600fa0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+33410985039b37b3a6bd933ae85184fe238deda9")]
 [assembly: System.Reflection.AssemblyProductAttribute("RubiusHomeWork")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RubiusHomeWork")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
