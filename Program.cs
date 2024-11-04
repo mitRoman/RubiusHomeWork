@@ -31,6 +31,7 @@ else
 }
 
 
+
 //-------- Задача #2 ------------
 
 Console.Write("Введите количество расходов: ");
@@ -51,4 +52,7 @@ foreach (int item in costsArr) {
     summ += item;
 }
 
-Console.WriteLine($"Общие расходы за месяц составляют: {summ}");
+if (summ == 0)
+    Console.WriteLine("Вы ввели некорректные данные");
+else
+    Console.WriteLine($"Общие расходы за месяц составляют: {summ}");
