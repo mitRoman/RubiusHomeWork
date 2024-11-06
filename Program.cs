@@ -1,33 +1,38 @@
 ﻿
 // ------ Задача #1 -------
-Console.Write("Введите номер года: ");
 
-string yearNumber = Console.ReadLine();
+bool isCorrect = false;
 
-if (int.TryParse(yearNumber, out int year))
-{
-    if (year >= 0 && year <= 30000)
+while (isCorrect == false) {
+    Console.Write("Введите номер года: ");
+    string yearNumber = Console.ReadLine();
+
+    if (int.TryParse(yearNumber, out int year))
     {
-        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+        if (year >= 0 && year <= 30000)
         {
-            Console.WriteLine("YES");
+            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+            {
+                Console.WriteLine("YES");
+            }
+            else
+            {
+                Console.WriteLine("NO");
+            }
+            Console.WriteLine("");
         }
         else
         {
-            Console.WriteLine("NO");
+            Console.WriteLine("Введите целое число от 0 до 30000");
+            Console.WriteLine("");
         }
-        Console.WriteLine("");
+        isCorrect = true;
     }
     else
     {
-        Console.WriteLine("Введите целое число от 0 до 30000");
+        Console.WriteLine("Введите корректные данные");
         Console.WriteLine("");
     }
-}
-else
-{
-    Console.WriteLine("Введите корректные данные");
-    Console.WriteLine("");
 }
 
 
