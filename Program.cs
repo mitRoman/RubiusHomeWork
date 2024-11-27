@@ -1,48 +1,133 @@
-﻿using System;
-using RubiusHomeWork;
+﻿interface IPrintableShape
+{
+    void PrintType();
+    void PrintSquare();
+    void PrintPerimeter();
+}
 
 class Program
 {
     static void Main()
     {
-        Menu menu = new Menu();
-        AirTransportMenu airTransport = new AirTransportMenu();
-        GroundTransport groundTransport = new GroundTransport();
-        WaterTransport waterTransport = new WaterTransport();
+        Parser parser = new Parser();
+        Circle circle = new Circle();
+        Rectangle rectangle = new Rectangle();
+        Triangle triangle = new Triangle();
+        Trapezoid trapezoid = new Trapezoid();
 
-        int input = 0; 
-
-        menu.GetMenu();
-
-        while(input == 0)
+        //--------- Circle --------
+        bool isStop = false;
+        while (!isStop)
         {
-            Console.Write("Выберите тип транспорта: ");
-            input = int.TryParse(Console.ReadLine(), out int parseInput) ? parseInput : 0;
-
-            switch (input)
+            try
             {
-                case 1:
-                    menu.GetSubMenu(input);
-                    Console.Write("Выберите подтип транспорта: ");
-                    int input2 = int.TryParse(Console.ReadLine(), out parseInput) ? parseInput : 0;
-                    Console.WriteLine($"Отлично! Вы выбрали воздушный транспорт - {airTransport.GetSubtype(input2)}");
-                    break;
-                case 2:
-                    menu.GetSubMenu(input);
-                    Console.Write("Выберите подтип транспорта: ");
-                    input2 = int.TryParse(Console.ReadLine(), out parseInput) ? parseInput : 0;
-                    Console.WriteLine($"Отлично! Вы выбрали воздушный транспорт - {groundTransport.GetSubtype(input2)}");
-                    break;
-                case 3:
-                    menu.GetSubMenu(input);
-                    Console.Write("Выберите подтип транспорта: ");
-                    input2 = int.TryParse(Console.ReadLine(), out parseInput) ? parseInput : 0;
-                    Console.WriteLine($"Отлично! Вы выбрали воздушный транспорт - {waterTransport.GetSubtype(input2)}");
-                    break;
-                default:
-                    Console.WriteLine("Выбранного пункта нет в меню. Сделайте другой выбор.");
-                    input = 0;
-                    break;
+                Console.WriteLine("-----------------");
+                Console.Write("Введите радус круга: ");
+                double radius = parser.GetParseValue(Console.ReadLine());
+
+                circle.TrySet(radius);
+                circle.PrintType();
+                circle.PrintSquare();
+                circle.PrintPerimeter();
+
+                isStop = true;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        //--------- Rectangle ----------
+        isStop = false;
+        while (!isStop)
+        {
+            try
+            {
+                Console.WriteLine("-----------------");
+                Console.Write("Введите ширину прямоугольника: ");
+                double width = parser.GetParseValue(Console.ReadLine());
+                Console.Write("Введите высоту прямоугольника: ");
+                double height = parser.GetParseValue(Console.ReadLine());
+
+                rectangle.TrySet(width, height);
+                rectangle.PrintType();
+                rectangle.PrintSquare();
+                rectangle.PrintPerimeter();
+
+                isStop = true;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        //--------- Triangle -----------
+        isStop = false;
+        while (!isStop)
+        {
+            try
+            {
+                Console.WriteLine("-----------------");
+                Console.Write("Введите длину стороны А треугольника: ");
+                double sideA = parser.GetParseValue(Console.ReadLine());
+                Console.Write("Введите длину стороны B треугольника: ");
+                double sideB = parser.GetParseValue(Console.ReadLine());
+                Console.Write("Введите длину стороны C треугольника: ");
+                double sideC = parser.GetParseValue(Console.ReadLine());
+
+                if (triangle.TrySet(sideA, sideB, sideC, out string message))
+                {
+                    triangle.PrintType();
+                    triangle.PrintSquare();
+                    triangle.PrintPerimeter();
+                    isStop = true;
+                }
+                else
+                {
+                    Console.WriteLine(message);
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        //--------- Trapezoid -----------
+        isStop = false;
+        while (!isStop)
+        {
+            try
+            {
+                Console.WriteLine("-----------------");
+                Console.Write("Введите длину основания А трапеции: ");
+                double sideA = parser.GetParseValue(Console.ReadLine());
+                Console.Write("Введите длину основания В трапеции: ");
+                double sideB = parser.GetParseValue(Console.ReadLine());
+                Console.Write("Введите длину боковой стороны С трапеции: ");
+                double sideC = parser.GetParseValue(Console.ReadLine());
+                Console.Write("Введите длину боковой стороны D трапеции: ");
+                double sideD = parser.GetParseValue(Console.ReadLine());
+                Console.Write("Введите высоту трапеции: ");
+                double height = parser.GetParseValue(Console.ReadLine());
+
+                if (trapezoid.TrySet(sideA, sideB, sideC, sideD, height, out string message))
+                {
+                    trapezoid.PrintType();
+                    trapezoid.PrintSquare();
+                    trapezoid.PrintPerimeter();
+                    isStop = true;
+                }
+                else
+                {
+                    Console.WriteLine(message);
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }
