@@ -1,134 +1,57 @@
-﻿interface IPrintableShape
-{
-    void PrintType();
-    void PrintSquare();
-    void PrintPerimeter();
-}
+﻿// ---------- Задание #1 ----------
+string path = @"C:\Users\Public\Book.txt";
 
-class Program
+if (File.Exists(path))
 {
-    static void Main()
+    try
     {
-        Parser parser = new Parser();
-        Circle circle = new Circle();
-        Rectangle rectangle = new Rectangle();
-        Triangle triangle = new Triangle();
-        Trapezoid trapezoid = new Trapezoid();
+        string content = File.ReadAllText(path);
+        int wordCount = 0;
 
-        //--------- Circle --------
-        bool isStop = false;
-        while (!isStop)
+        wordCount = Counter.CountWords(content);
+
+        Console.WriteLine($"Количество слов (чтение всего файла): {wordCount}");
+
+        using (StreamReader reader = new StreamReader(path))
         {
-            try
+            wordCount = 0;
+            string? line;
+            while ((line = reader.ReadLine()) != null)
             {
-                Console.WriteLine("-----------------");
-                Console.Write("Введите радус круга: ");
-                double radius = parser.GetParseValue(Console.ReadLine());
-
-                circle.TrySet(radius);
-                circle.PrintType();
-                circle.PrintSquare();
-                circle.PrintPerimeter();
-
-                isStop = true;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
+                wordCount += Counter.CountWords(line);
             }
         }
 
-        //--------- Rectangle ----------
-        isStop = false;
-        while (!isStop)
-        {
-            try
-            {
-                Console.WriteLine("-----------------");
-                Console.Write("Введите ширину прямоугольника: ");
-                double width = parser.GetParseValue(Console.ReadLine());
-                Console.Write("Введите высоту прямоугольника: ");
-                double height = parser.GetParseValue(Console.ReadLine());
-
-                rectangle.TrySet(width, height);
-                rectangle.PrintType();
-                rectangle.PrintSquare();
-                rectangle.PrintPerimeter();
-
-                isStop = true;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        //--------- Triangle -----------
-        isStop = false;
-        while (!isStop)
-        {
-            try
-            {
-                Console.WriteLine("-----------------");
-                Console.Write("Введите длину стороны А треугольника: ");
-                double sideA = parser.GetParseValue(Console.ReadLine());
-                Console.Write("Введите длину стороны B треугольника: ");
-                double sideB = parser.GetParseValue(Console.ReadLine());
-                Console.Write("Введите длину стороны C треугольника: ");
-                double sideC = parser.GetParseValue(Console.ReadLine());
-
-                if (triangle.TrySet(sideA, sideB, sideC, out string message))
-                {
-                    triangle.PrintType();
-                    triangle.PrintSquare();
-                    triangle.PrintPerimeter();
-                    isStop = true;
-                }
-                else
-                {
-                    Console.WriteLine(message);
-                }
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        //--------- Trapezoid -----------
-        isStop = false;
-        while (!isStop)
-        {
-            try
-            {
-                Console.WriteLine("-----------------");
-                Console.Write("Введите длину основания А трапеции: ");
-                double sideA = parser.GetParseValue(Console.ReadLine());
-                Console.Write("Введите длину основания В трапеции: ");
-                double sideB = parser.GetParseValue(Console.ReadLine());
-                Console.Write("Введите длину боковой стороны С трапеции: ");
-                double sideC = parser.GetParseValue(Console.ReadLine());
-                Console.Write("Введите длину боковой стороны D трапеции: ");
-                double sideD = parser.GetParseValue(Console.ReadLine());
-                Console.Write("Введите высоту трапеции: ");
-                double height = parser.GetParseValue(Console.ReadLine());
-
-                if (trapezoid.TrySet(sideA, sideB, sideC, sideD, height, out string message))
-                {
-                    trapezoid.PrintType();
-                    trapezoid.PrintSquare();
-                    trapezoid.PrintPerimeter();
-                    isStop = true;
-                }
-                else
-                {
-                    Console.WriteLine(message);
-                }
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+        Console.WriteLine($"Количество слов (потоковая обработка): {wordCount}");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Ошибка: {ex.Message}");
     }
 }
+else
+{
+    Console.WriteLine("Файл не найден.");
+}
+
+
+
+// ---------- Задание #2 ----------
+
+
+
+Console.Write("Введите дату регистрации:");
+string str = Console.ReadLine();
+
+Parser parser = new Parser(str);
+
+
+class Person : Registration
+{
+    public string Name { get; set; }
+
+
+}
+
+
+

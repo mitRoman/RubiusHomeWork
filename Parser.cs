@@ -1,10 +1,9 @@
-﻿class Parser
+﻿internal class Parser
 {
-    public double GetParseValue(string? value)
+    public static DateTime GetParseValue(string input)
     {
-        if (double.TryParse(value, out double parseValue))
-            return parseValue;
-        throw new ArgumentException("Некорректные данные! Не удалось преобразовать значение.");
+        DateTime dateTime = DateTime.TryParse(input, out DateTime result) ? result : DateTime.MinValue;
+        return dateTime;
     }
 }
 
