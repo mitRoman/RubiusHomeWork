@@ -1,9 +1,9 @@
 ﻿internal class Parser
 {
-    public static DateTime GetParseValue(string input)
+    public static int GetParseValue(string choice)
     {
-        DateTime dateTime = DateTime.TryParse(input, out DateTime result) ? result : DateTime.MinValue;
-        return dateTime;
+        int num = int.TryParse(choice, out int parseInt) ? parseInt : 0;
+        return num;
     }
 }
 
