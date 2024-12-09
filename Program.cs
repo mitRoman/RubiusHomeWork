@@ -1,42 +1,30 @@
-﻿class Program
+﻿//------------- Задание #1 -------------
+public class Program
 {
     public static async Task Main(string[] args)
     {
-        string path = "resource\\Book.txt";
 
-        string fullPath = Path.Combine(Directory.GetCurrentDirectory(), path);
-
-        if (File.Exists(fullPath))
+        Console.Write("Введите число от 1 до 100: ");
+        if (!int.TryParse(Console.ReadLine(), out int num) || num < 1 || num > 100)
         {
-            try
-            {
-                string content = await File.ReadAllTextAsync(fullPath);
-                int wordCount = 0;
-
-                wordCount = Counter.CountWords(content);
-
-                Console.WriteLine($"Количество слов (чтение всего файла): {wordCount}");
-
-                using (StreamReader reader = new StreamReader(fullPath))
-                {
-                    wordCount = 0;
-                    string? line;
-                    while ((line = await reader.ReadLineAsync()) != null)
-                    {
-                        wordCount += Counter.CountWords(line);
-                    }
-                }
-
-                Console.WriteLine($"Количество слов (потоковая обработка): {wordCount}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ошибка: {ex.Message}");
-            }
+            Console.WriteLine("Введено некорректное число. Завершение программы.");
+            return;
         }
-        else
-        {
-            Console.WriteLine("Файл не найден.");
-        }
+
+        Counter.ThresholdReached += Handler1.InfoMessage;
+        Counter.ThresholdReached += Handler2.InfoMessage;
+
+        await Counter.StartCount(num);
+
+
+
+        //------------- Задание #2 -------------
+        var ping = new Ping();
+        var pong = new Pong();
+
+        ping.PingEvent += pong.ReceivePing;
+        pong.PongEvent += ping.ReceivePong;
+
+        await ping.StartPing();
     }
 }
