@@ -1,30 +1,45 @@
-﻿//------------- Задание #1 -------------
-public class Program
+﻿class Program
 {
-    public static async Task Main(string[] args)
+    static async Task Main(string[] args)
     {
+        using var dbContext = new ApplicationContext();
+        var userService = new UserService(dbContext);
 
-        Console.Write("Введите число от 1 до 100: ");
-        if (!int.TryParse(Console.ReadLine(), out int num) || num < 1 || num > 100)
+        while (true)
         {
-            Console.WriteLine("Введено некорректное число. Завершение программы.");
-            return;
+            Console.WriteLine("\nВыберите действие:");
+            Console.WriteLine("1. Показать всех пользователей");
+            Console.WriteLine("2. Найти пользователя по ID");
+            Console.WriteLine("3. Добавить пользователя");
+            Console.WriteLine("4. Редактировать пользователя");
+            Console.WriteLine("5. Удалить пользователя");
+            Console.WriteLine("0. Выйти");
+
+            var choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    await userService.GetAllUsers();
+                    break;
+                case "2":
+                    await userService.GetUserById();
+                    break;
+                case "3":
+                    await userService.AddUser();
+                    break;
+                case "4":
+                    await userService.EditUser();
+                    break;
+                case "5":
+                    await userService.DeleteUser();
+                    break;
+                case "0":
+                    return;
+                default:
+                    Console.WriteLine("Некорректный ввод. Попробуйте снова.");
+                    break;
+            }
         }
-
-        Counter.ThresholdReached += Handler1.InfoMessage;
-        Counter.ThresholdReached += Handler2.InfoMessage;
-
-        await Counter.StartCount(num);
-
-
-
-        //------------- Задание #2 -------------
-        var ping = new Ping();
-        var pong = new Pong();
-
-        ping.PingEvent += pong.ReceivePing;
-        pong.PongEvent += ping.ReceivePong;
-
-        await ping.StartPing();
     }
 }
